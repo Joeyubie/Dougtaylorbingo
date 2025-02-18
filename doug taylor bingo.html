@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo Game</title>
+    <style>
+        table { border-collapse: collapse; margin: 20px auto; }
+        th, td { border: 1px solid black; padding: 10px; text-align: center; cursor: pointer; }
+        .marked { background-color: yellow; }
+    </style>
+</head>
+<body>
+    <script>
+        const generateBingoCard = () => {
+            let card = [];
+            let allNumbers = new Set();
+            while (allNumbers.size < 25) {
+                allNumbers.add(Math.floor(Math.random() * 100) + 1);
+            }
+            let numbersArray = [...allNumbers];
+            
+            for (let i = 0; i < 5; i++) {
+                card.push(numbersArray.slice(i * 5, (i + 1) * 5));
+            }
+            
+            return card;
+        };
+
+        const renderBingoCard = (card) => {
+            let table = document.createElement("table");
+            let letters = ["B", "I", "N", "G", "O"];
+            let headerRow = document.createElement("tr");
+            letters.forEach(letter => {
+                let th = document.createElement("th");
+                th.innerText = letter;
+                headerRow.appendChild(th);
+            });
+            table.appendChild(headerRow);
+            
+            for (let i = 0; i < 5; i++) {
+                let row = document.createElement("tr");
+                for (let j = 0; j < 5; j++) {
+                    let cell = document.createElement("td");
+                    cell.innerText = card[i][j];
+                    cell.addEventListener("click", () => cell.classList.toggle("marked"));
+                    row.appendChild(cell);
+                }
+                table.appendChild(row);
+            }
+            
+            document.body.appendChild(table);
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            let card = generateBingoCard();
+            renderBingoCard(card);
+        });
+    </script>
+</body>
+</html>
