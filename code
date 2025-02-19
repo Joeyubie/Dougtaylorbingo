@@ -12,16 +12,12 @@
 </head>
 <body>
     <script>
-        const generateBingoCard = () => {
+        const generateBingoCard = (phrases) => {
             let card = [];
-            let allNumbers = new Set();
-            while (allNumbers.size < 25) {
-                allNumbers.add(Math.floor(Math.random() * 100) + 1);
-            }
-            let numbersArray = [...allNumbers];
+            let shuffledPhrases = phrases.sort(() => 0.5 - Math.random()).slice(0, 25);
             
             for (let i = 0; i < 5; i++) {
-                card.push(numbersArray.slice(i * 5, (i + 1) * 5));
+                card.push(shuffledPhrases.slice(i * 5, (i + 1) * 5));
             }
             
             return card;
@@ -53,7 +49,8 @@
         };
 
         document.addEventListener("DOMContentLoaded", () => {
-            let card = generateBingoCard();
+            let phrases = ["Gang", "Minimize", "look up", "1 minute break", "Just 5 minutes of notes", "*Leaves class for no reason*", "Could you speak up?", "*Glazes Trump", "Absolutely", "Never", "Why not?", "Exactly", "Interesting", "Tell me more", "I see", "Not sure", "Of course", "Let's go", "Cool", "Sounds good", "No way", "Unbelievable", "Fantastic", "Incredible", "Wow"];
+            let card = generateBingoCard(phrases);
             renderBingoCard(card);
         });
     </script>
