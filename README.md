@@ -1,1 +1,0 @@
-Bingo for Douglas Taylor
